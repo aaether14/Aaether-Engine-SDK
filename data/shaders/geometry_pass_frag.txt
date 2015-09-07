@@ -1,0 +1,25 @@
+#version 330 core
+
+
+layout (location = 0) out vec3 NormalOut;
+
+
+in vec3 view_space_normals;
+in vec2 UV;
+
+uniform float on_mesh_render;
+uniform sampler2D texture;
+
+void main()
+{
+
+
+if (on_mesh_render == 1.0)
+if (texture2D(texture, UV).a == 0.0)
+discard;
+
+
+NormalOut = normalize(view_space_normals) * 0.5 + 0.5;
+
+
+}

@@ -1,0 +1,22 @@
+#version 330 core
+
+
+layout(location = 0) out float color;
+uniform sampler2D texture;
+in vec2 UV;
+in vec4 positions;
+
+
+
+
+void main(){
+
+
+
+if (texture2D(texture, UV).a == 0.0)
+discard;
+
+color = gl_FragCoord.z;
+
+
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="GlossySerpentFHD/TabContentPane" name="Tab6" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="Text" value="Shadows" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="GlossySerpentFHD/Spinner" name="Spinner" >
+            <Property name="Area" value="{{0.175907,0},{0.235588,0},{0.51027,0},{0.316471,0}}" />
+            <Property name="Text" value="0" />
+            <Property name="TextInputMode" value="FloatingPoint" />
+            <AutoWindow namePath="__auto_editbox__" >
+                <Property name="Text" value="0" />
+                <Property name="ValidationString" value="-?\d*\.?\d*" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_incbtn__" >
+                <Property name="WantsMultiClickEvents" value="false" />
+                <Property name="MouseAutoRepeatEnabled" value="true" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_decbtn__" >
+                <Property name="WantsMultiClickEvents" value="false" />
+                <Property name="MouseAutoRepeatEnabled" value="true" />
+            </AutoWindow>
+        </Window>
+        <Window type="GlossySerpentFHD/Checkbox" name="Checkbox" >
+            <Property name="Area" value="{{0.175564,0},{0.143432,0},{0.528505,0},{0.207158,0}}" />
+            <Property name="Text" value="Enable" />
+        </Window>
+        <Window type="GlossySerpentFHD/StaticText" name="StaticText" >
+            <Property name="Area" value="{{0.552941,0},{0.242647,0},{0.835294,0},{0.303921,0}}" />
+            <Property name="Text" value="Blur amount" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="true" />
+            <Property name="BackgroundEnabled" value="true" />
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <Property name="VerticalScrollbar" value="true" />
+            </AutoWindow>
+        </Window>
+    </Window>
+</GUILayout>

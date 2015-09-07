@@ -1,0 +1,59 @@
+#version 330 core
+
+
+layout(location = 0) out vec4 color;
+
+uniform sampler2D texture;
+uniform sampler2D texture1;
+uniform sampler2D texture2;
+uniform float use_dof;
+uniform float white_point;
+
+
+in vec2 UV;
+
+
+
+vec4 Uncharted2Tonemap(vec4 x)
+{
+
+
+float A = 0.15;
+float B = 0.50;
+float C = 0.10;
+float D = 0.20;
+float E = 0.02;
+float F = 0.30;
+
+
+return ((x*(A*x+C*B)+D*E)/(x*(A*x+B)+D*F))-E/F;
+
+
+}
+
+
+
+void main(){
+
+	
+	if (use_dof == 1.0)
+	{
+
+
+	float f = 64.0;
+    float n = 1.0;
+	float depth = texture2D(texture1, UV).r;
+    float z = (2 * n) / (f + n - depth * (f - n));
+	color = texture2D(texture, UV) + z * (texture2D(texture2, UV) - texture2D(texture, UV));
+
+
+	}
+	else
+    color = texture2D(texture, UV);
+
+    
+	float exposure = 1.0;
+    color = Uncharted2Tonemap(color * exposure) / Uncharted2Tonemap(vec4(white_point));
+
+
+}

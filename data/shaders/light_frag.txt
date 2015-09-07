@@ -1,0 +1,84 @@
+struct BaseLight                                                                    
+{
+                                                                                   
+    vec3 color;                                                                     
+    float ambient_intensity;                                                         
+    float diffuse_intensity;                                                         
+
+
+};                                                                                  
+
+
+                                                                                    
+struct DirectionalLight                                                             
+{   
+                                                                                
+    BaseLight Base;                                                                 
+    vec3 direction;                                                                 
+
+};  
+
+
+
+struct Attenuation                                                                  
+{   
+                                                                                
+    float Constant;                                                                 
+    float Linear;                                                                   
+    float Exp;                                                                      
+
+};                                                                                  
+
+
+                                                                                    
+struct PointLight                                                                           
+{   
+                                                                                        
+    BaseLight Base;                                                                         
+    vec3 position;                                                                          
+    Attenuation Atten;                                                                      
+
+}; 
+
+
+
+
+struct SpotLight
+{
+
+    PointLight Base_point_light;
+	vec3 direction;
+	float Cutoff;
+
+};
+
+
+
+
+
+struct FogAttributes
+{
+
+
+vec3 color;
+float density;
+
+
+};
+
+
+
+
+
+float getFogFactor(vec4 eyePos, float density)
+{
+
+
+
+float fogCoord = abs(eyePos.z/eyePos.w);
+return exp(-pow((density * fogCoord), 2.0));
+
+
+
+}
+

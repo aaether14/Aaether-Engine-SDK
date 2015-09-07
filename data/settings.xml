@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<GeneralInfo>
+  <BaseInfo>
+    <WindowTitle>3D Adventures 0.2.6</WindowTitle>
+    <WindowWidth>800</WindowWidth>
+    <WindowHeight>600</WindowHeight>
+	<Fullscreen>0</Fullscreen>
+    <OpenGLMajorVersion>4</OpenGLMajorVersion>
+	<OpenGLMinorVersion>3</OpenGLMinorVersion>
+	<ProjectName>data/map1.AAETHER</ProjectName>
+  </BaseInfo>
+</GeneralInfo>

@@ -1,0 +1,221 @@
+﻿#version 330 core
+#extension GL_EXT_gpu_shader4:enable
+
+
+
+
+const int MAX_POINT_LIGHTS = 2;    
+const int MAX_SPOT_LIGHTS = 2;  
+
+
+
+
+in vec2 UV;
+in vec3 normals;
+in vec3 view_space_normals;
+in vec4 camera_space_position;
+in vec4 ShadowCoord;
+in vec3 toCameraVector;
+
+
+
+
+layout (location = 0) out vec4 DiffuseOut;
+
+
+
+
+#include "light_frag.txt"
+
+
+
+
+uniform DirectionalLight InternalDirectionalLight;
+uniform PointLight InternalPointLights[MAX_POINT_LIGHTS];
+uniform SpotLight InternalSpotLights[MAX_SPOT_LIGHTS];
+uniform sampler2D texture_material;   
+uniform sampler2D shadow_map;
+uniform sampler2D ssao_map;
+uniform FogAttributes fog;   
+
+
+
+
+uniform float has_ssao;
+uniform float specular_intensity;
+uniform float specular_power;
+
+
+
+
+
+float SampleExponentialShadowMap(sampler2D shadow_map, vec2 Coords, float compare)
+{
+
+
+ float c = -80.0;
+ float depth = texture(shadow_map, Coords).r;
+ depth = exp(c*(depth - compare));
+
+ return clamp(depth, 0.0, 1.0);
+
+}
+
+
+
+float CalcShadowFactor(vec4 LightSpacePos)
+{
+
+     vec3 ProjCoords = LightSpacePos.xyz / LightSpacePos.w;
+	 return SampleExponentialShadowMap(shadow_map, ProjCoords.xy, ProjCoords.z);
+
+
+} 
+
+
+
+
+vec2 CalcScreenTexCoord()
+{
+    return gl_FragCoord.xy / textureSize(ssao_map, 0);
+}
+
+
+
+
+
+vec3 CalcInternalLight(BaseLight Light,vec3 light_direction,vec3 Normal,float shadow_factor)
+{
+
+
+
+
+    vec3 AmbientLight = Light.color * Light.ambient_intensity;
+
+
+	float NdotL = max(dot(Normal, light_direction), 0.0);                            
+    vec3 DiffuseLight = Light.color * Light.diffuse_intensity * NdotL;  
+
+
+	vec3 SpecularLight = vec3(0.0);
+	if (NdotL > 0.0)
+	{
+
+	vec3 H = normalize(normalize(toCameraVector) + light_direction);
+	float NdotH = max(dot(Normal, H), 0.0);
+	SpecularLight = pow(NdotH, specular_power) * Light.color * specular_intensity;
+
+
+	}
+
+
+	return shadow_factor * (SpecularLight + DiffuseLight) + AmbientLight;
+
+
+}
+
+
+
+
+
+vec3 CalcDirectionalLight(DirectionalLight Light, vec3 Normal, float shadow_factor)                                                      
+{
+
+                                                                                          
+    return CalcInternalLight(Light.Base, Light.direction, Normal, shadow_factor);
+	
+	 
+}  
+
+
+
+
+vec3 CalcPointLight(PointLight l, vec3 Normal, vec4 LightSpacePos)                                                 
+{
+
+
+                                                                                           
+    vec3 LightDirection = camera_space_position.xyz - l.position;                         
+    float Distance = length(LightDirection);                                                
+    LightDirection = normalize(LightDirection);           
+	
+	                                                       
+    float ShadowFactor = CalcShadowFactor(LightSpacePos);
+	
+	
+						                                                                    
+    vec3 Color = CalcInternalLight(l.Base, LightDirection, Normal, ShadowFactor);       
+    float Attenuation =  l.Atten.Constant +                               
+                         l.Atten.Linear * Distance +                      
+                         l.Atten.Exp * Distance * Distance;               
+    
+	
+	                                                                                       
+    return Color / Attenuation;                                     
+	
+	
+	 
+} 
+
+
+
+vec3 CalcSpotLight(SpotLight l, vec3 Normal, vec4 LightSpacePos)
+{
+
+
+
+    vec3 LightToPixel = normalize(camera_space_position.xyz - l.Base_point_light.position);
+    float SpotFactor = dot(LightToPixel, l.direction);
+
+
+    if (SpotFactor > l.Cutoff) 
+	{
+        vec3 Color = CalcPointLight(l.Base_point_light, Normal, LightSpacePos);
+        return Color * (1.0 - (1.0 - SpotFactor) * 1.0/(1.0 - l.Cutoff));
+    }
+    else 
+        return vec3(0.0);
+
+
+
+} 
+
+
+
+
+
+
+
+
+void main(){
+
+
+
+    vec3 Normal = normalize(normals);                                                       
+    vec3 TotalLight = CalcDirectionalLight(InternalDirectionalLight, Normal, CalcShadowFactor(ShadowCoord));                                         
+		
+									                                         
+
+
+	vec4 textureFetch = texture2D(texture_material, UV);
+	float SSAO_factor = 0.0;
+
+
+
+	if (has_ssao == 1.0)
+	SSAO_factor = texture2D(ssao_map, CalcScreenTexCoord()).r;
+	else
+	SSAO_factor = 1.0;
+
+
+
+	DiffuseOut = textureFetch * vec4(TotalLight, 1.0) * SSAO_factor;
+	if (textureFetch.a > 0.0)
+    DiffuseOut = mix(vec4(fog.color, 1.0), DiffuseOut, getFogFactor(camera_space_position, fog.density));
+	else 
+	discard;
+
+
+}
+
+

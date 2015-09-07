@@ -1,0 +1,75 @@
+#version 330 core
+
+
+
+layout(location = 0) in vec3 Positions;
+layout(location = 1) in vec2 TexCoords;
+layout(location = 2) in vec3 Normals;
+layout (location = 3) in ivec4 BoneIDs;
+layout (location = 4) in vec4 Weights;
+
+
+
+
+out vec2 UV;
+out vec3 normals;
+out vec4 ShadowCoord;
+
+
+
+out vec4 camera_space_position;
+out vec3 toCameraVector;
+
+
+
+
+const int MAX_BONES = 128;
+
+
+
+uniform mat4 LightMatrix; // shadow POV
+uniform mat4 Bones[MAX_BONES]; // bone matrices;
+
+
+
+uniform mat4 M; // from model space to world space
+uniform mat4 V; // from world space to camera space
+uniform mat4 P; // from camera space to clip space
+uniform mat4 N; // normal matrix
+
+
+
+
+void main(){
+
+
+
+    mat4 BoneTransform = mat4(1.0);
+	if (Weights[0] != 0)
+	{
+
+	BoneTransform = Bones[BoneIDs[0]] * Weights[0];
+	BoneTransform += Bones[BoneIDs[1]] * Weights[1];
+	BoneTransform += Bones[BoneIDs[2]] * Weights[2];
+	BoneTransform += Bones[BoneIDs[3]] * Weights[3];
+
+	}
+
+
+	vec4 PosL = BoneTransform*vec4(Positions, 1.0);  // bone position
+
+
+
+	 mat4 MV               = V * M;
+	 gl_Position           =  (P *  (MV * PosL));
+	 UV                    = TexCoords;
+     normals               = normalize(vec3((N * (BoneTransform * vec4(Normals, 0.0)))));
+	 camera_space_position = (MV * PosL);
+	 ShadowCoord           = LightMatrix * PosL;
+	 toCameraVector        = -camera_space_position.xyz; 
+	   
+
+}
+
+
+

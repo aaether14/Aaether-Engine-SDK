@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<GeneralInfo>
+  <BaseInfo>
+    <EntityName>GrassC</EntityName>
+    <Rotation>0, 0, 0</Rotation>
+    <Scale>1, 1, 1</Scale>
+	<Radius>12.5</Radius>
+    <SSAO>0</SSAO>
+	<Cull>0</Cull>
+  </BaseInfo>
+</GeneralInfo>

@@ -1,0 +1,93 @@
+#version 330
+
+
+
+in vec2 TexCoord;
+in vec3 ViewRay;
+
+
+out float color;
+
+
+uniform sampler2D gDepthMap;
+uniform sampler2D gNormalMap;
+uniform sampler2D gNoiseMap;
+uniform float gSampleRad;
+uniform float gPower;
+uniform int gNumSamples;
+uniform mat4 gProj;
+
+
+
+const int MAX_KERNEL_SIZE = 128;
+uniform vec3 gKernel[MAX_KERNEL_SIZE];
+
+
+
+
+float GetLiniarDepth(float depth, float n, float f)
+{
+     float z_n = 2.0 * depth - 1.0;
+     return 2.0 * n * f / (f + n - z_n * (f - n));
+}
+
+
+float CalcViewZ(vec2 Coords)
+{
+    float Depth = texture(gDepthMap, Coords).x;
+    float ViewZ = gProj[3][2] / (2 * Depth -1 + gProj[2][2]);
+    return ViewZ;
+}
+
+
+
+float ssao(in mat3 kernelBasis, in vec3 originPos, in float radius) {
+
+	float occlusion = 0.0;
+
+
+	for (int i = 0; i < gNumSamples; ++i)
+	 {
+
+		vec3 samplePos = kernelBasis * gKernel[i];
+		samplePos = samplePos * radius + originPos;
+		
+		vec4 offset = gProj * vec4(samplePos, 1.0);
+		offset.xy /= offset.w;
+		offset.xy = offset.xy * 0.5 + 0.5;
+	
+
+		float sampleDepth = -CalcViewZ(offset.xy);
+		float sampleDistance = texture(gDepthMap, offset.xy).r;
+
+		occlusion += step(sampleDepth, samplePos.z);
+
+	}
+	
+	occlusion = occlusion / float(gNumSamples);
+	return pow(occlusion, gPower);
+}
+
+
+
+
+void main()
+{
+    vec3 Pos = ViewRay * CalcViewZ(TexCoord);
+	vec2 noiseTexCoords = vec2(textureSize(gDepthMap, 0)) / vec2(textureSize(gNoiseMap, 0));
+	noiseTexCoords *= TexCoord;
+	vec3 normal = texture(gNormalMap, TexCoord).rgb * 2.0 - 1.0;
+
+	if (normal == vec3(-1.0))
+	color = 1.0;
+	else
+	{
+	vec3 rvec = texture(gNoiseMap, noiseTexCoords).rgb;
+	vec3 tangent = normalize(rvec - normal * dot(rvec, normal));
+	vec3 bitangent = cross(tangent, normal);
+	mat3 kernelBasis = mat3(tangent, bitangent, normal);
+    color = ssao(kernelBasis, Pos, gSampleRad);
+	}
+
+
+} 

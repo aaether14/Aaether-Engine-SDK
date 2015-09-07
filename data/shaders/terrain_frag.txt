@@ -1,0 +1,420 @@
+#version 330 core
+#extension GL_EXT_gpu_shader4:enable
+
+
+
+
+
+const int MAX_POINT_LIGHTS = 2;  
+const int MAX_SPOT_LIGHTS = 2;    
+
+
+
+in vec2 UV;
+in vec3 normals;
+in vec3 worlds;
+
+
+
+in mat3 TBN;
+in vec4 eyePos;
+in vec4 ShadowCoord;
+
+
+
+layout (location = 0) out vec3 DiffuseOut;
+
+
+
+
+struct BaseLight                                                                    
+{
+                                                                                   
+    vec3 color;                                                                     
+    float ambient_intensity;                                                         
+    float diffuse_intensity;                                                         
+
+
+};                                                                                  
+
+
+                                                                                    
+struct DirectionalLight                                                             
+{   
+                                                                                
+    BaseLight Base;                                                                 
+    vec3 direction;                                                                 
+
+};  
+
+
+
+struct Attenuation                                                                  
+{   
+                                                                                
+    float Constant;                                                                 
+    float Linear;                                                                   
+    float Exp;                                                                      
+
+};                                                                                  
+
+
+                                                                                    
+struct PointLight                                                                           
+{   
+                                                                                        
+    BaseLight Base;                                                                         
+    vec3 position;                                                                          
+    Attenuation Atten;                                                                      
+
+}; 
+
+
+struct SpotLight
+{
+
+    PointLight Base_point_light;
+	vec3 direction;
+	float Cutoff;
+
+};
+
+
+
+
+
+struct TextureAttributes
+{
+
+
+float diffuse_scale;
+float detail_scale;
+float diffuse_intensity;
+
+};
+
+
+
+struct FogAttributes
+{
+
+
+vec3 color;
+float density;
+
+
+};
+
+
+
+
+uniform DirectionalLight InternalDirectionalLight;
+uniform PointLight InternalPointLights[MAX_POINT_LIGHTS];
+uniform SpotLight InternalSpotLights[MAX_SPOT_LIGHTS];
+
+
+uniform sampler2D myTextureSampler;   
+uniform sampler2DArray myTextureSampler2;
+uniform sampler2DArray myTextureSampler3;
+uniform sampler2D shadow_map;
+
+
+
+uniform TextureAttributes attributes[4];
+uniform FogAttributes fog;   
+
+
+
+
+
+
+
+
+
+float SampleShadowMap(sampler2D shadow_map, vec2 Coords, float compare)
+{
+     return step(texture(shadow_map,Coords).r, compare);
+}
+
+
+
+float SampleShadowMapLinear(sampler2D shadow_map, vec2 Coords, float compare, vec2 TexelSize)
+{
+
+vec2 pixelPos = Coords/TexelSize + vec2(0.5);
+vec2 fracPart = fract(pixelPos);
+vec2 startTexel = (pixelPos - fracPart)*TexelSize;
+
+
+float corners[4];
+
+
+corners[0] = SampleShadowMap(shadow_map, startTexel, compare);
+corners[1] = SampleShadowMap(shadow_map, startTexel + vec2(TexelSize.x, 0.0), compare);
+corners[2] = SampleShadowMap(shadow_map, startTexel + vec2(0.0, TexelSize.y), compare);
+corners[3] = SampleShadowMap(shadow_map, startTexel + TexelSize, compare);
+
+
+float mixA = mix(corners[0], corners[2], fracPart.y);
+float mixB = mix(corners[1], corners[3], fracPart.y);
+
+
+return mix(mixA, mixB, fracPart.x);
+
+
+}
+
+
+float SampleShadowMapPCF(sampler2D shadow_map, vec2 Coords, float compare, vec2 TexelSize)
+{
+
+
+const float NUM_SAMPLES = 3.0;
+const float SAMPLES_START = (NUM_SAMPLES - 1.0) / 2.0;
+const float NUM_SAMPLES_SQUARED = NUM_SAMPLES * NUM_SAMPLES;
+
+
+float result = 0.0;
+
+for (float y = -SAMPLES_START; y <= SAMPLES_START; y += 1.0)
+    for (float x = -SAMPLES_START; x <= SAMPLES_START; x += 1.0)
+     {
+
+        vec2 coordOffset = vec2(x,y) * TexelSize;
+        result += SampleShadowMapLinear(shadow_map, Coords + coordOffset, compare, TexelSize);
+
+     } 
+
+
+return result / NUM_SAMPLES_SQUARED;
+
+}
+
+
+
+float linstep(float low, float high, float v)
+{
+
+    return clamp((v - low) / (high - low), 0.0, 1.0);
+
+}
+
+
+
+float SampleVarianceShadowMap(sampler2D shadow_map, vec2 Coords, float compare)
+{
+
+
+vec2 Moments = texture(shadow_map, Coords).xy;
+float p = step(Moments.x, compare);
+float Variance = Moments.y - Moments.x * Moments.x;
+Variance = max(Variance, 0.0001);
+float d = compare - Moments.x;
+float p_max = Variance / (Variance + d * d);
+p_max = max(p, p_max);
+return linstep(0.6, 1.0, p_max);
+
+}
+
+
+float SampleExponentialShadowMap(sampler2D shadow_map, vec2 Coords, float compare)
+{
+
+ const float esm_bias   = 0.01;
+ const float esm_factor = 0.5;
+ const float over_dark = 4.0f;
+ float occluder = texture(shadow_map, Coords).r;
+ float receiver = exp(esm_bias - esm_factor * compare);
+ return clamp(occluder * receiver * over_dark, 0.0, 1.0);
+
+
+}
+
+float CalcShadowFactor(vec4 LightSpacePos)
+{
+
+     vec3 ProjCoords = LightSpacePos.xyz / LightSpacePos.w;
+	 return SampleExponentialShadowMap(shadow_map, ProjCoords.xy, ProjCoords.z);
+
+
+} 
+
+
+
+
+
+vec3 CalcInternalLight(BaseLight Light,vec3 light_direction,vec3 Normal,float shadow_factor)
+{
+
+
+    vec3 AmbientLight = Light.color * Light.ambient_intensity;
+	float DiffuseFactor = max(0,dot(Normal,-light_direction));                               
+    vec3 DiffuseLight = Light.color * Light.diffuse_intensity * DiffuseFactor;  
+	return (1 - shadow_factor)*DiffuseLight + AmbientLight;
+
+}
+
+
+
+
+
+vec3 CalcDirectionalLight(vec3 Normal)                                                      
+{
+
+                                                                                          
+    return CalcInternalLight(InternalDirectionalLight.Base, InternalDirectionalLight.direction, Normal, CalcShadowFactor(ShadowCoord));
+	
+	 
+}  
+
+
+
+
+vec3 CalcPointLight(PointLight l, vec3 Normal, vec4 LightSpacePos)                                                 
+{
+
+
+                                                                                           
+    vec3 LightDirection = worlds - l.position;                         
+    float Distance = length(LightDirection);                                                
+    LightDirection = normalize(LightDirection);                                                                  
+    float ShadowFactor = CalcShadowFactor(LightSpacePos);
+						                                                                    
+    vec3 Color = CalcInternalLight(l.Base, LightDirection, Normal, ShadowFactor);       
+    float Attenuation =  l.Atten.Constant +                               
+                         l.Atten.Linear * Distance +                      
+                         l.Atten.Exp * Distance * Distance;               
+                                                                                           
+    return Color / Attenuation;                                     
+	
+	
+	 
+} 
+
+
+
+vec3 CalcSpotLight(SpotLight l, vec3 Normal, vec4 LightSpacePos)
+{
+    vec3 LightToPixel = normalize(worlds - l.Base_point_light.position);
+    float SpotFactor = dot(LightToPixel, l.direction);
+
+    if (SpotFactor > l.Cutoff) {
+        vec3 Color = CalcPointLight(l.Base_point_light, Normal, LightSpacePos);
+        return Color * (1.0 - (1.0 - SpotFactor) * 1.0/(1.0 - l.Cutoff));
+    }
+    else {
+        return vec3(0.0);
+    }
+} 
+
+
+
+
+
+
+vec3 SetTerrainTiles()
+{
+
+  
+
+	vec3 outputColor = vec3(0,0,0);
+	vec4 tile_sample = texture2D(myTextureSampler,UV);
+
+	
+	outputColor += attributes[0].diffuse_intensity * pow(texture2DArray(myTextureSampler2,
+	vec3(UV*attributes[0].diffuse_scale,0)).rgb, vec3(2.2)) * tile_sample.r;
+
+	outputColor += attributes[1].diffuse_intensity * pow(texture2DArray(myTextureSampler2,
+	vec3(UV*attributes[1].diffuse_scale,1)).rgb, vec3(2.2)) * tile_sample.g;
+
+	outputColor += attributes[2].diffuse_intensity * pow(texture2DArray(myTextureSampler2,
+	vec3(UV*attributes[2].diffuse_scale,2)).rgb, vec3(2.2)) * tile_sample.b;
+
+	outputColor += attributes[3].diffuse_intensity * pow(texture2DArray(myTextureSampler2,
+	vec3(UV*attributes[3].diffuse_scale,3)).rgb, vec3(2.2)) * tile_sample.a;
+
+
+
+
+return outputColor;
+
+
+} 
+
+
+
+
+vec3 CalcBumpedNormal()
+{
+
+
+	vec4 tile_sample = texture2D(myTextureSampler,UV);
+    vec3 outputNormal = vec3(0,0,0);
+
+
+	outputNormal += (2.0 * texture2DArray(myTextureSampler3,
+	 vec3(UV*attributes[0].detail_scale,0)).xyz - vec3(1.0, 1.0, 1.0))* tile_sample.r;
+
+	outputNormal += (2.0 * texture2DArray(myTextureSampler3,
+	 vec3(UV*attributes[1].detail_scale,1)).xyz - vec3(1.0, 1.0, 1.0))* tile_sample.g;
+
+	outputNormal += (2.0 * texture2DArray(myTextureSampler3,
+	 vec3(UV*attributes[2].detail_scale,2)).xyz - vec3(1.0, 1.0, 1.0))* tile_sample.b;
+
+	outputNormal += (2.0 * texture2DArray(myTextureSampler3,
+	 vec3(UV*attributes[3].detail_scale,3)).xyz - vec3(1.0, 1.0, 1.0))* tile_sample.a;
+
+
+    outputNormal = normalize(TBN*outputNormal);
+
+
+    return outputNormal;
+}
+
+
+
+
+
+
+float getFogFactor(float density)
+{
+
+
+
+float fogCoord = abs(eyePos.z/eyePos.w);
+return exp(-pow((density * fogCoord), 2.0));
+
+
+
+}
+
+
+
+
+
+
+void main(){
+
+
+
+	vec3  Normal = CalcBumpedNormal();
+    vec3 TotalLight = CalcDirectionalLight(Normal);                                         
+
+
+								                                                            
+    for (int i = 0 ; i < 0 ; i++) {                                           
+
+
+        TotalLight += CalcSpotLight(InternalSpotLights[i], Normal, ShadowCoord);                                            
+
+    }
+	
+
+
+   DiffuseOut = SetTerrainTiles() * TotalLight;
+   DiffuseOut = mix(fog.color, DiffuseOut, getFogFactor(fog.density));
+
+
+}
+
+

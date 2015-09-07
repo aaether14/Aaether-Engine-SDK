@@ -1,0 +1,88 @@
+float SampleShadowMap(sampler2D shadow_map, vec2 Coords, float compare)
+{
+     return step(texture(shadow_map,Coords).r, compare);
+}
+
+
+
+float SampleShadowMapLinear(sampler2D shadow_map, vec2 Coords, float compare, vec2 TexelSize)
+{
+
+vec2 pixelPos = Coords/TexelSize + vec2(0.5);
+vec2 fracPart = fract(pixelPos);
+vec2 startTexel = (pixelPos - fracPart)*TexelSize;
+
+
+float corners[4];
+
+
+corners[0] = SampleShadowMap(shadow_map, startTexel, compare);
+corners[1] = SampleShadowMap(shadow_map, startTexel + vec2(TexelSize.x, 0.0), compare);
+corners[2] = SampleShadowMap(shadow_map, startTexel + vec2(0.0, TexelSize.y), compare);
+corners[3] = SampleShadowMap(shadow_map, startTexel + TexelSize, compare);
+
+
+float mixA = mix(corners[0], corners[2], fracPart.y);
+float mixB = mix(corners[1], corners[3], fracPart.y);
+
+
+return mix(mixA, mixB, fracPart.x);
+
+
+}
+
+
+
+float SampleShadowMapPCF(sampler2D shadow_map, vec2 Coords, float compare, vec2 TexelSize)
+{
+
+
+const float NUM_SAMPLES = 3.0;
+const float SAMPLES_START = (NUM_SAMPLES - 1.0) / 2.0;
+const float NUM_SAMPLES_SQUARED = NUM_SAMPLES * NUM_SAMPLES;
+
+
+float result = 0.0;
+
+for (float y = -SAMPLES_START; y <= SAMPLES_START; y += 1.0)
+    for (float x = -SAMPLES_START; x <= SAMPLES_START; x += 1.0)
+     {
+
+        vec2 coordOffset = vec2(x,y) * TexelSize;
+        result += SampleShadowMapLinear(shadow_map, Coords + coordOffset, compare, TexelSize);
+
+     } 
+
+
+return result / NUM_SAMPLES_SQUARED;
+
+}
+
+
+
+float linstep(float low, float high, float v)
+{
+
+    return clamp((v - low) / (high - low), 0.0, 1.0);
+
+}
+
+
+
+float SampleVarianceShadowMap(sampler2D shadow_map, vec2 Coords, float compare)
+{
+
+
+vec2 Moments = texture(shadow_map, Coords).xy;
+float p = step(Moments.x, compare);
+float Variance = Moments.y - Moments.x * Moments.x;
+Variance = max(Variance, 0.0001);
+float d = compare - Moments.x;
+float p_max = Variance / (Variance + d * d);
+p_max = max(p, p_max);
+return linstep(0.6, 1.0, p_max);
+
+}
+
+
+

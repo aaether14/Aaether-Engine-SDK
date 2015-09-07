@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="GlossySerpentFHD/TabContentPane" name="Tab1" >
+        <Property name="Area" value="{{-0.00392157,0},{0,0},{0.996078,0},{1,0}}" />
+        <Property name="Text" value="Lighting" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="GlossySerpentFHD/ScrollablePane" name="ScrollablePane" >
+            <Property name="Area" value="{{0.0745098,0},{0.0465687,0},{0.952941,0},{0.963235,0}}" />
+            <Property name="ContentArea" value="l:0 t:0 r:686 b:769" />
+            <Property name="ForceVertScrollbar" value="true" />
+            <AutoWindow namePath="__auto_container__" >
+                <Property name="ContentArea" value="l:0 t:0 r:686 b:769" />
+                <Property name="MouseInputPropagationEnabled" value="true" />
+                <Window type="GlossySerpentFHD/StaticText" name="StaticText" >
+                    <Property name="Area" value="{{0.0990566,0},{0.0508022,0},{0.858491,0},{0.15508,0}}" />
+                    <Property name="Text" value="Directional light" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="true" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/StaticText" name="StaticText2" >
+                    <Property name="Area" value="{{0.487686,0},{0.21696,0},{0.989872,0},{0.320262,0}}" />
+                    <Property name="Text" value="Model ambient" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="true" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/Spinner" name="Spinner" >
+                    <Property name="Area" value="{{0.0146971,0},{0.208011,0},{0.463009,0},{0.331488,0}}" />
+                    <Property name="Text" value="0" />
+                    <Property name="TextInputMode" value="FloatingPoint" />
+                    <AutoWindow namePath="__auto_editbox__" >
+                        <Property name="Text" value="0" />
+                        <Property name="ValidationString" value="-?\d*\.?\d*" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Property name="MouseAutoRepeatEnabled" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Property name="MouseAutoRepeatEnabled" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/Spinner" name="Spinner2" >
+                    <Property name="Area" value="{{0.0173287,0},{0.350024,0},{0.46564,0},{0.473501,0}}" />
+                    <Property name="Text" value="0" />
+                    <Property name="TextInputMode" value="FloatingPoint" />
+                    <AutoWindow namePath="__auto_editbox__" >
+                        <Property name="Text" value="0" />
+                        <Property name="ValidationString" value="-?\d*\.?\d*" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Property name="MouseAutoRepeatEnabled" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Property name="MouseAutoRepeatEnabled" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/Spinner" name="Spinner3" >
+                    <Property name="Area" value="{{0.0146971,0},{0.49496,0},{0.463008,0},{0.618438,0}}" />
+                    <Property name="Text" value="0" />
+                    <Property name="TextInputMode" value="FloatingPoint" />
+                    <AutoWindow namePath="__auto_editbox__" >
+                        <Property name="Text" value="0" />
+                        <Property name="ValidationString" value="-?\d*\.?\d*" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Property name="MouseAutoRepeatEnabled" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Property name="MouseAutoRepeatEnabled" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/Spinner" name="Spinner4" >
+                    <Property name="Area" value="{{0.0167826,0},{0.633281,0},{0.465094,0},{0.756758,0}}" />
+                    <Property name="Text" value="0" />
+                    <Property name="TextInputMode" value="FloatingPoint" />
+                    <AutoWindow namePath="__auto_editbox__" >
+                        <Property name="Text" value="0" />
+                        <Property name="ValidationString" value="-?\d*\.?\d*" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Property name="MouseAutoRepeatEnabled" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Property name="MouseAutoRepeatEnabled" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/Spinner" name="Spinner5" >
+                    <Property name="Area" value="{{0.0109733,0},{1.1228,0},{0.459284,0},{1.24628,0}}" />
+                    <Property name="Text" value="0" />
+                    <Property name="TextInputMode" value="FloatingPoint" />
+                    <AutoWindow namePath="__auto_editbox__" >
+                        <Property name="Text" value="0" />
+                        <Property name="ValidationString" value="-?\d*\.?\d*" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Property name="MouseAutoRepeatEnabled" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Property name="MouseAutoRepeatEnabled" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/StaticText" name="StaticText9" >
+                    <Property name="Area" value="{{0.48289,0},{1.13241,0},{0.985076,0},{1.23571,0}}" />
+                    <Property name="Text" value="Density" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="true" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/StaticText" name="StaticText5" >
+                    <Property name="Area" value="{{0.490672,0},{0.643847,0},{0.992858,0},{0.747149,0}}" />
+                    <Property name="Text" value="Terrain diffuse" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="true" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/StaticText" name="StaticText4" >
+                    <Property name="Area" value="{{0.48714,0},{0.500764,0},{0.989326,0},{0.604066,0}}" />
+                    <Property name="Text" value="Terrain ambient" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="true" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/StaticText" name="StaticText3" >
+                    <Property name="Area" value="{{0.48714,0},{0.358382,0},{0.989326,0},{0.461684,0}}" />
+                    <Property name="Text" value="Model diffuse" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="true" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/StaticText" name="StaticText7" >
+                    <Property name="Area" value="{{0.15432,0},{0.980165,-5},{0.913754,0},{1.08444,-5}}" />
+                    <Property name="Text" value="Directional light" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="true" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="Vanilla/ColourPicker" name="ColourPicker" >
+                    <Property name="Area" value="{{0.0135887,0},{0.78144,0},{0.461899,0},{0.904917,0}}" />
+                </Window>
+                <Window type="Vanilla/ColourPicker" name="ColourPicker2" >
+                    <Property name="Area" value="{{0.00845908,0},{1.27432,0},{0.45677,0},{1.39779,0}}" />
+                </Window>
+                <Window type="GlossySerpentFHD/StaticText" name="StaticText52" >
+                    <Property name="Area" value="{{0.490673,0},{0.780454,0},{0.992858,0},{0.883756,0}}" />
+                    <Property name="Text" value="Colour" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="true" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpentFHD/StaticText" name="StaticText53" >
+                    <Property name="Area" value="{{0.486331,0},{1.27855,0},{0.98852,0},{1.38185,0}}" />
+                    <Property name="Text" value="Colour" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="true" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+            </AutoWindow>
+            <AutoWindow namePath="__auto_hscrollbar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+                <Property name="VerticalScrollbar" value="true" />
+            </AutoWindow>
+        </Window>
+    </Window>
+</GUILayout>

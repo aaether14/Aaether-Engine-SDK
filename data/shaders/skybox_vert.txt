@@ -1,0 +1,16 @@
+#version 330                                                               
+                                                                                    
+layout (location = 0) in vec3 Position;                                             
+                                                                                    
+uniform mat4 MVP;   
+uniform mat4 MV;                                                                                                                                                  
+out vec3 UV;     
+				
+				                                                                    
+void main()                                                                         
+{                                                                                   
+    UV   = normalize(Position);                                     
+    gl_Position = MVP*vec4(Position, 1.0);    
+
+	                                                                                               
+}

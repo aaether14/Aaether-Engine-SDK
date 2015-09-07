@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="GlossySerpentFHD/TabContentPane" name="Tab5" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="Text" value="Depth of Field" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="GlossySerpentFHD/Checkbox" name="Checkbox" >
+            <Property name="Area" value="{{0.089314,-13},{0.143432,-10},{0.442255,-9},{0.207158,-2}}" />
+            <Property name="Text" value="Enable" />
+        </Window>
+    </Window>
+</GUILayout>

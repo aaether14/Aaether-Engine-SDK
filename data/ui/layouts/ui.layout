@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="GlossySerpentFHD/StaticImage" name="MainMenuRootItem" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="FrameEnabled" value="false" />
+        <Property name="InheritsAlpha" value="false" />
+        <Property name="BackgroundEnabled" value="false" />
+        <Property name="WantsMultiClickEvents" value="false" />
+        <Property name="MousePassThroughEnabled" value="true" />
+        <Window type="GlossySerpentFHD/FrameWindow" name="Frame" >
+            <Property name="Area" value="{{0.68118,0},{0.052,0},{0.68118,245},{0.052,296}}" />
+            <Property name="Text" value="Settings" />
+            <Property name="TitlebarFont" value="DejaVuSerif-HD-12" />
+            <Property name="SizingEnabled" value="false" />
+            <Property name="TitlebarHeight" value="25" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="Font" value="DejaVuSerif-HD-12" />
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpentFHD/TabControl" name="Settings" >
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{0.988466,0}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="TabHeight" value="{0.075,0}" />
+                <Property name="TooltipText" value="This is a test tab control" />
+                <Property name="TCScrollLRatio" value="0.45" />
+                <AutoWindow namePath="__auto_TabPane__" >
+                    <Property name="EnableTop" value="0" />
+                    <Property name="TooltipText" value="This is a test tab control" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_TabPane__Buttons" >
+                    <Property name="EnableTop" value="0" />
+                    <Property name="TooltipText" value="This is a test tab control" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_TabPane__ScrollLeft" >
+                    <Property name="Visible" value="false" />
+                    <Property name="AlwaysOnTop" value="true" />
+                    <Property name="TooltipText" value="This is a test tab control" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_TabPane__ScrollRight" >
+                    <Property name="Visible" value="false" />
+                    <Property name="AlwaysOnTop" value="true" />
+                    <Property name="TooltipText" value="This is a test tab control" />
+                </AutoWindow>
+            </Window>
+        </Window>
+        <Window type="GlossySerpentFHD/Menubar" name="Menubar" >
+            <Property name="Area" value="{{0,0},{0,0},{1,0},{0.05,0}}" />
+            <Window type="GlossySerpentFHD/MenuItem" name="MenuItem" >
+                <Property name="Area" value="{{0,9},{0,0},{0,61},{0,26}}" />
+                <Property name="Text" value="Project" />
+                <Property name="VerticalAlignment" value="Centre" />
+                <Property name="WantsMultiClickEvents" value="false" />
+                <Window type="GlossySerpentFHD/PopupMenu" name="PopupMenu" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,53.6667},{0,92.0968}}" />
+                    <Property name="Visible" value="false" />
+                    <Property name="ItemSpacing" value="2" />
+                    <Property name="ClippedByParent" value="false" />
+                    <Property name="AutoResizeEnabled" value="true" />
+                    <Window type="GlossySerpentFHD/MenuItem" name="MenuItem" >
+                        <Property name="Area" value="{{0,4},{0,6},{0,50},{0,32}}" />
+                        <Property name="Text" value="Save" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpentFHD/MenuItem" name="MenuItem2" >
+                        <Property name="Area" value="{{0,4},{0,34},{0,50},{0,60}}" />
+                        <Property name="Text" value="Load" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpentFHD/MenuItem" name="MenuItem3" >
+                        <Property name="Area" value="{{0,4},{0,62},{0,50},{0,88}}" />
+                        <Property name="Text" value="Reset" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                </Window>
+            </Window>
+            <Window type="GlossySerpentFHD/MenuItem" name="MenuItem2" >
+                <Property name="Area" value="{{0,71.3333},{0,0},{0,109.333},{0,26}}" />
+                <Property name="Text" value="View" />
+                <Property name="VerticalAlignment" value="Centre" />
+                <Property name="WantsMultiClickEvents" value="false" />
+                <Window type="GlossySerpentFHD/PopupMenu" name="PopupMenu" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,81.6667},{0,92.0968}}" />
+                    <Property name="Visible" value="false" />
+                    <Property name="ItemSpacing" value="2" />
+                    <Property name="ClippedByParent" value="false" />
+                    <Property name="AutoResizeEnabled" value="true" />
+                    <Window type="GlossySerpentFHD/MenuItem" name="MenuItem" >
+                        <Property name="Area" value="{{0,4},{0,6},{0,78},{0,32}}" />
+                        <Property name="Text" value="Settings" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpentFHD/MenuItem" name="MenuItem2" >
+                        <Property name="Area" value="{{0,4},{0,34},{0,78},{0,60}}" />
+                        <Property name="Text" value="Scene" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpentFHD/MenuItem" name="MenuItem3" >
+                        <Property name="Area" value="{{0,4},{0,62},{0,78},{0,88}}" />
+                        <Property name="Text" value="Transform" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                </Window>
+            </Window>
+        </Window>
+        <Window type="GlossySerpentFHD/FrameWindow" name="Frame2" >
+            <Property name="Area" value="{{0.68118,0},{0.55,0},{0.68118,244},{0.55,260}}" />
+            <Property name="Text" value="Scene" />
+            <Property name="TitlebarFont" value="DejaVuSerif-HD-12" />
+            <Property name="SizingEnabled" value="false" />
+            <Property name="TitlebarHeight" value="25" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="Font" value="DejaVuSerif-HD-12" />
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="TaharezLook/Tree" name="SceneOutliner" >
+                <Property name="Area" value="{{0,8},{0,10},{0,223},{0,219}}" />
+                <Property name="Font" value="OpenSans-Regular-16" />
+                <Property name="MultiSelect" value="true" />
+                <Property name="ItemTooltips" value="true" />
+            </Window>
+        </Window>
+        <Window type="GlossySerpentFHD/FrameWindow" name="Frame3" >
+            <Property name="Area" value="{{0.00875,0},{-0.0566666,68},{0.00875,250},{-0.0566666,300}}" />
+            <Property name="Text" value="Transform" />
+            <Property name="TitlebarFont" value="DejaVuSerif-HD-12" />
+            <Property name="SizingEnabled" value="false" />
+            <Property name="TitlebarHeight" value="25" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="Font" value="DejaVuSerif-HD-12" />
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpentFHD/RadioButton" name="RadioButton" >
+                <Property name="Area" value="{{0.0633802,0},{0.0223439,0},{0.156338,50},{-0.124039,50}}" />
+                <Property name="Text" value="Position" />
+            </Window>
+            <Window type="GlossySerpentFHD/RadioButton" name="RadioButton3" >
+                <Property name="Area" value="{{0.0633802,0},{0.305427,0},{0.156338,50},{0.159045,50}}" />
+                <Property name="Text" value="Scale" />
+            </Window>
+            <Window type="GlossySerpentFHD/RadioButton" name="RadioButton2" >
+                <Property name="Area" value="{{0.0633803,0},{0.164092,0},{0.190141,50},{0.0177098,50}}" />
+                <Property name="Text" value="Rotiation" />
+            </Window>
+            <Window type="GlossySerpentFHD/Spinner" name="Spinner2" >
+                <Property name="Area" value="{{0.140189,-17},{0.597175,8},{0.596952,-17},{0.747958,8}}" />
+                <Property name="Text" value="0" />
+                <Property name="TextInputMode" value="FloatingPoint" />
+                <AutoWindow namePath="__auto_editbox__" >
+                    <Property name="Text" value="0" />
+                    <Property name="ValidationString" value="-?\d*\.?\d*" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpentFHD/Spinner" name="Spinner3" >
+                <Property name="Area" value="{{0.137214,-17},{0.712815,19},{0.593977,-17},{0.863598,19}}" />
+                <Property name="Text" value="0" />
+                <Property name="TextInputMode" value="FloatingPoint" />
+                <AutoWindow namePath="__auto_editbox__" >
+                    <Property name="Text" value="0" />
+                    <Property name="ValidationString" value="-?\d*\.?\d*" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpentFHD/Spinner" name="Spinner" >
+                <Property name="Area" value="{{0.140361,-17},{0.475879,-2},{0.597124,-17},{0.626662,-2}}" />
+                <Property name="Text" value="0" />
+                <Property name="TextInputMode" value="FloatingPoint" />
+                <AutoWindow namePath="__auto_editbox__" >
+                    <Property name="Text" value="0" />
+                    <Property name="ValidationString" value="-?\d*\.?\d*" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_incbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_decbtn__" >
+                    <Property name="WantsMultiClickEvents" value="false" />
+                    <Property name="MouseAutoRepeatEnabled" value="true" />
+                </AutoWindow>
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

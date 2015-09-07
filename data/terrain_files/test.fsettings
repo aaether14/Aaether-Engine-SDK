@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Scene>
+    <SSAO>
+        <Enabled>1</Enabled>
+        <Radius>1.500000</Radius>
+        <Power>3.250000</Power>
+        <NumberOfSamples>8</NumberOfSamples>
+    </SSAO>
+    <DoF>
+        <Enabled>0</Enabled>
+    </DoF>
+    <HDR>
+        <BloomEnabled>1</BloomEnabled>
+        <Whitepoint>1.100000</Whitepoint>
+    </HDR>
+    <FXAA>
+        <Enabled>1</Enabled>
+        <ReduceMul>0.125000</ReduceMul>
+        <ReduceMin>0.007813</ReduceMin>
+        <SpanMax>8.000000</SpanMax>
+    </FXAA>
+</Scene>

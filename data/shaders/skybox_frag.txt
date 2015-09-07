@@ -1,0 +1,33 @@
+#version 330 core                                                                 
+                                                                                    
+in vec3 UV;                                                                  
+in vec3 view_space_normals;
+		                                                                            
+layout (location = 0) out vec4 DiffuseOut;   
+
+      
+uniform samplerCube cube;   
+uniform vec4 fog_color;                                                            
+				   
+
+
+#include "procedural_frag.txt"
+				   
+
+				   
+				                                                                    
+void main()                                                                         
+{               
+
+    float low = 0.0;
+    float high = 0.25;            
+
+   if (UV.y >= low && UV.y < high)
+   DiffuseOut = mix(texture(cube, UV),fog_color, 1 - UV.y / high);
+   else if (UV.y < 0)
+   DiffuseOut = fog_color;
+   else
+   DiffuseOut = texture(cube, UV);  
+	                      
+
+}

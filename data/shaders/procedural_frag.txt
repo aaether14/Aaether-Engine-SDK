@@ -1,0 +1,27 @@
+
+
+
+vec4 GetProceduralSky(vec3 UVs)
+{
+
+
+ vec4 TopColor      = vec4(0.37, 0.52, 0.73, 1);
+ vec4 HorizonColor  = vec4(0.89, 0.96, 1, 1);
+ vec4 BottomColor   = vec4(0.89, 0.89, 0.89, 1);
+ float SkyExponent  = 8.5;
+ float SkyIntensity = 2.5;
+
+ UVs = normalize(UVs);
+
+
+ float p = UVs.y;
+
+        float p1 = 1 - pow(min(1, 1 - p), SkyExponent);
+        float p3 = 1 - pow(min(1, 1 + p), 5);
+        float p2 = 1 - p1 - p3;
+
+        vec4 c_sky = TopColor * p1 + HorizonColor * p2 + BottomColor * p3;
+
+		return c_sky * SkyIntensity;
+
+}
