@@ -21,7 +21,7 @@ class Quad
 {
 
 
-	GLuint m_VAO, m_VBO;
+    GLuint m_VAO, m_VBO;
 
 
 
@@ -29,30 +29,36 @@ public:
 
 
 
-	/**
-	Calls Init()
-	*/
-	inline Quad(){ this->Init(); }
-	/**
-	Initializes data
-	*/
-	void Init();
+    /**
+    Calls Init()
+    */
+    inline Quad()
+    {
+        this->Init();
+    }
+    /**
+    Initializes data
+    */
+    void Init();
 
 
-	/**
-	Calls Clean()
-	*/
-	inline ~Quad(){ this->Clean(); }
-	/**
-	Cleans data
-	*/
-	void Clean();
+    /**
+    Calls Clean()
+    */
+    inline ~Quad()
+    {
+        this->Clean();
+    }
+    /**
+    Cleans data
+    */
+    void Clean();
 
 
-	/**
-	Renders quad
-	*/
-	void Render();
+    /**
+    Renders quad
+    */
+    void Render();
 
 
 };

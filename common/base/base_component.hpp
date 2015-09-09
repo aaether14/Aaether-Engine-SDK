@@ -28,14 +28,14 @@ protected:
 public:
 
 
-	/**
-	Check if the component can handle the extension
-	*/
-	virtual bool isValid(char * extension) = 0;
-	/**
-	Provide resource loading function for the component based on extension
-	*/
-	virtual void Load(char * path, char * extension) = 0;
+    /**
+    Check if the component can handle the extension
+    */
+    virtual bool isValid(char * extension) = 0;
+    /**
+    Provide resource loading function for the component based on extension
+    */
+    virtual void Load(char * path, char * extension) = 0;
 
 
 

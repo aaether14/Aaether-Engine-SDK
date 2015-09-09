@@ -8,7 +8,8 @@ set (3D_Adventures_VERSION_MINOR 0)
 
 
 
-link_directories("${PROJECT_SOURCE_DIR}/lib")
+
+
 
 
 
@@ -18,13 +19,18 @@ include_directories("${PROJECT_SOURCE_DIR}/include")
 
 
 
+
+
+     
+
+
+
+add_subdirectory(common)
 add_executable(3D_Adventures main.cpp stdafx.cpp stdafx.h)
 
 
 
 
-
-add_subdirectory(common)
 
 
 
@@ -58,18 +64,64 @@ target_link_libraries(3D_Adventures util)
 
 
 
-target_link_libraries(3D_Adventures CEGUICommonDialogs-0.lib)
-target_link_libraries(3D_Adventures CEGUIBase-0.lib)
-target_link_libraries(3D_Adventures CEGUIOpenGLRenderer-0.lib)
-target_link_libraries(3D_Adventures assimpd.lib)
-target_link_libraries(3D_Adventures FreeImaged.lib)
-target_link_libraries(3D_Adventures freetype.lib)
-target_link_libraries(3D_Adventures glfw3.lib)
-target_link_libraries(3D_Adventures glew32.lib)
-target_link_libraries(3D_Adventures glu32.lib)
-target_link_libraries(3D_Adventures opengl32.lib)
 
 
 
 
+set(BOOST_ROOT "C:/Users/Aaether/Desktop/")
 
+
+
+
+   set(Boost_USE_STATIC_LIBS        ON)
+   set(Boost_USE_MULTITHREADED      ON)
+   set(Boost_USE_STATIC_RUNTIME    OFF)
+   find_package(Boost
+             1.58.0
+             COMPONENTS system
+                        filesystem
+             REQUIRED)
+   
+   
+   
+   
+      include_directories(${Boost_INCLUDE_DIRS})
+      target_link_libraries(3D_Adventures ${Boost_LIBRARIES})
+	  
+   
+   
+   
+  
+  
+   find_package(OpenGL REQUIRED)
+   
+   
+  include_directories(${OPENGL_INCLUDE_DIRS})
+  target_link_libraries(3D_Adventures ${OPENGL_LIBRARIES})
+  
+  
+  
+  
+  find_package(GLEW REQUIRED)
+    include_directories(${GLEW_INCLUDE_DIRS})
+	  target_link_libraries(3D_Adventures ${GLEW_LIBRARIES})
+
+
+	  if (GLEW_FOUND)
+	  MESSAGE(STATUS "GLEW was found!")
+	  endif(GLEW_FOUND)
+  
+  
+  
+  find_package(GLFW REQUIRED)
+  
+  
+  
+  
+  
+  set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+  find_package(CEGUI REQUIRED)
+    include_directories(${CEGUI_INCLUDE_DIR})
+	  target_link_libraries(3D_Adventures ${CEGUI_LIBRARY})
+  
+  

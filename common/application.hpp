@@ -22,29 +22,35 @@ class Application : public AModule
 public:
 
 
-	/**
-	Calls Init()
-	*/
-	inline Application() { Init(); }
-	/**
-	Calls Clean()
-	*/
-	inline ~Application() { Clean(); }
+    /**
+    Calls Init()
+    */
+    inline Application()
+    {
+        Init();
+    }
+    /**
+    Calls Clean()
+    */
+    inline ~Application()
+    {
+        Clean();
+    }
 
 
-	/**
-	Initializes branches
-	*/
-	void Init();
-	/**
-	Cleans branches data
-	*/
-	void Clean();
+    /**
+    Initializes branches
+    */
+    void Init();
+    /**
+    Cleans branches data
+    */
+    void Clean();
 
-	/**
-	Enables app
-	*/
-	void Enable();
+    /**
+    Enables app
+    */
+    void Enable();
 
 
 };

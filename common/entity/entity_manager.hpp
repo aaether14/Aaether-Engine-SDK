@@ -40,25 +40,25 @@ public:
 
 
 
-	/**
-	Initialize data
-	*/
-	void Init();
+    /**
+    Initialize data
+    */
+    void Init();
 
 
 
 
-	/**
-	Clean data
-	*/
-	void Clean();
+    /**
+    Clean data
+    */
+    void Clean();
 
 
-	/**
-	Try to render entities
-	*/
-	void Enable();
-	
+    /**
+    Try to render entities
+    */
+    void Enable();
+
 
 };
 

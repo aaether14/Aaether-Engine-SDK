@@ -26,32 +26,38 @@ public:
 
 
 
-	/**
-	Calls Init()
-	*/
-	inline UIManager(){ this->Init(); }
-	/**
-	Initializes CEGUI
-	*/
-	void Init();
+    /**
+    Calls Init()
+    */
+    inline UIManager()
+    {
+        this->Init();
+    }
+    /**
+    Initializes CEGUI
+    */
+    void Init();
 
 
 
-	/**
-	Calls Clean()
-	*/
-	inline ~UIManager(){ this->Clean(); }
-	/**
-	Cleans data
-	*/
-	void Clean();
+    /**
+    Calls Clean()
+    */
+    inline ~UIManager()
+    {
+        this->Clean();
+    }
+    /**
+    Cleans data
+    */
+    void Clean();
 
 
 
-	/**
-	Renders UI to scene 
-	*/
-	void Enable();
+    /**
+    Renders UI to scene
+    */
+    void Enable();
 
 
 

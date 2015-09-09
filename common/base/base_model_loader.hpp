@@ -26,18 +26,18 @@ public:
 
 
 
-	/**
-	Model loading
-	*/
-	virtual int Load(const char * path) = 0;
-	/**
-	Render to scene
-	*/
-	virtual void Render() = 0;
-	/**
-	Cleaning used resources
-	*/
-	virtual void Clean() = 0;
+    /**
+    Model loading
+    */
+    virtual int Load(const char * path) = 0;
+    /**
+    Render to scene
+    */
+    virtual void Render() = 0;
+    /**
+    Cleaning used resources
+    */
+    virtual void Clean() = 0;
 
 
 };

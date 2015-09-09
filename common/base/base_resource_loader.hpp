@@ -39,34 +39,34 @@ public:
 
 
 
-	/**
-	Initializes data
-	*/
-	void Init();
-	/**
-	Cleans data
-	*/
-	void Clean();
-	/**
-	Enables module to affect scene
-	*/
-	void Enable();
+    /**
+    Initializes data
+    */
+    void Init();
+    /**
+    Cleans data
+    */
+    void Clean();
+    /**
+    Enables module to affect scene
+    */
+    void Enable();
 
 
 
 
-	/**
-	Iterates through all state changer map and use their save function
-	*/
-	void SaveChanges();
-	/**
-	Iterates through all state changer map and use their load function
-	*/
-	void LoadChanges();
-	/**
-	Iterates through all state changer map and use their reset function
-	*/
-	void NoChanges();
+    /**
+    Iterates through all state changer map and use their save function
+    */
+    void SaveChanges();
+    /**
+    Iterates through all state changer map and use their load function
+    */
+    void LoadChanges();
+    /**
+    Iterates through all state changer map and use their reset function
+    */
+    void NoChanges();
 
 
 

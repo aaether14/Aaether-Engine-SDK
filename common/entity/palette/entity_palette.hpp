@@ -23,29 +23,29 @@ class EntityPalette : public AModule
 {
 
 
-	//UI data
+    //UI data
 
-	ui_SceneOutliner * ui_scene_outliner;
-	ui_TransformTab * ui_transform_tab;
-
-
-
-	GLboolean visible;
-	Entity * current_entity;
-	EntityInstance * current_instance;
-	GLuint entity_counter;
+    ui_SceneOutliner * ui_scene_outliner;
+    ui_TransformTab * ui_transform_tab;
 
 
 
+    GLboolean visible;
+    Entity * current_entity;
+    EntityInstance * current_instance;
+    GLuint entity_counter;
 
-	/**
-	Compute Model matrix from entity information
-	*/
-	glm::mat4 GetMatrix(Entity * entity); 
-	/**
-	Find an appropriate name for the new instance
-	*/
-	std::string GetInstanceName(SceneInfo * scene_info);
+
+
+
+    /**
+    Compute Model matrix from entity information
+    */
+    glm::mat4 GetMatrix(Entity * entity);
+    /**
+    Find an appropriate name for the new instance
+    */
+    std::string GetInstanceName(SceneInfo * scene_info);
 
 
 
@@ -53,36 +53,39 @@ class EntityPalette : public AModule
 public:
 
 
-	/**
-	Get pointer to scene outliner
-	*/
-	inline ui_SceneOutliner * GetSceneOutliner(){ return ui_scene_outliner; }
+    /**
+    Get pointer to scene outliner
+    */
+    inline ui_SceneOutliner * GetSceneOutliner()
+    {
+        return ui_scene_outliner;
+    }
 
 
 
-	/**
-	Initialize data*/
-	void Init();
-	/**
-	Cleans data
-	*/
-	void Clean();
-	/**
-	Render the currently selected entity
-	*/
-	void Enable();
-	/**
-	Manage input
-	*/
-	void ManagePaletteInput();
-	/**
-	Entity placement
-	*/
-	void ManageEntityPlacing();
-	/**
-	Manage filling of scene outliner with information
-	*/
-	void ManageSceneOutliner();
+    /**
+    Initialize data*/
+    void Init();
+    /**
+    Cleans data
+    */
+    void Clean();
+    /**
+    Render the currently selected entity
+    */
+    void Enable();
+    /**
+    Manage input
+    */
+    void ManagePaletteInput();
+    /**
+    Entity placement
+    */
+    void ManageEntityPlacing();
+    /**
+    Manage filling of scene outliner with information
+    */
+    void ManageSceneOutliner();
 
 
 

@@ -23,18 +23,18 @@ public:
 
 
 
-	/**
-	Initializes with screen size
-	*/
-	void Init();
-	/**
-	Cleans data
-	*/
-	void Clean();
-	/**
-	Handles drag&drop entity adition
-	*/
-	void Enable();
+    /**
+    Initializes with screen size
+    */
+    void Init();
+    /**
+    Cleans data
+    */
+    void Clean();
+    /**
+    Handles drag&drop entity adition
+    */
+    void Enable();
 
 
 

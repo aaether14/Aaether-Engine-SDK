@@ -23,74 +23,95 @@ class BasicFilterImplementation
 {
 
 
-	Shader * null_filter;
-	Shader * gamma_filter;
+    Shader * null_filter;
+    Shader * gamma_filter;
 
 
-	Shader * add_shader;
-	Shader * mult_shader;
+    Shader * add_shader;
+    Shader * mult_shader;
 
 
-	Quad * m_quad;
+    Quad * m_quad;
 
 
 
 public:
 
 
-	/**
-	Calls Init()
-	*/
-	inline BasicFilterImplementation(){ this->Init(); }
-	/**
-	Initializes data
-	*/
-	void Init();
+    /**
+    Calls Init()
+    */
+    inline BasicFilterImplementation()
+    {
+        this->Init();
+    }
+    /**
+    Initializes data
+    */
+    void Init();
 
 
-	/**
-	Calls Clean()
-	*/
-	inline ~BasicFilterImplementation(){ this->Clean(); }
-	/**
-	Cleans data
-	*/
-	void Clean();
+    /**
+    Calls Clean()
+    */
+    inline ~BasicFilterImplementation()
+    {
+        this->Clean();
+    }
+    /**
+    Cleans data
+    */
+    void Clean();
 
 
-	/**
-	Get pointer to null shader
-	*/
-	inline Shader * GetNullFilter(){ return this->null_filter; }
-	/**
-	Get pointer to gamma shader
-	*/
-	inline Shader * GetGammaFilter(){ return this->gamma_filter; }
+    /**
+    Get pointer to null shader
+    */
+    inline Shader * GetNullFilter()
+    {
+        return this->null_filter;
+    }
+    /**
+    Get pointer to gamma shader
+    */
+    inline Shader * GetGammaFilter()
+    {
+        return this->gamma_filter;
+    }
 
 
-	/**
-	Bind texture for null shader
-	*/
-	inline void BindNullTexture(){ this->null_filter->Set("texture", 0); }
-	/**
-	Bind texture for gamma shader
-	*/
-	inline void BindGammaTexture(){ this->gamma_filter->Set("texture", 0); }
+    /**
+    Bind texture for null shader
+    */
+    inline void BindNullTexture()
+    {
+        this->null_filter->Set("texture", 0);
+    }
+    /**
+    Bind texture for gamma shader
+    */
+    inline void BindGammaTexture()
+    {
+        this->gamma_filter->Set("texture", 0);
+    }
 
 
-	/**
-	Mult 'tex1' by 'tex2.x' and store in 'target'
-	*/
-	void MultTextures(TextureObject * target, GLuint tex1, GLuint tex2, glm::ivec2 window_size);
-	/**
-	Add 'tex1' to 'tex2' and store in 'target'
-	*/
-	void AddTextures(TextureObject * target, GLuint tex1, GLuint tex2, glm::ivec2 window_size);
+    /**
+    Mult 'tex1' by 'tex2.x' and store in 'target'
+    */
+    void MultTextures(TextureObject * target, GLuint tex1, GLuint tex2, glm::ivec2 window_size);
+    /**
+    Add 'tex1' to 'tex2' and store in 'target'
+    */
+    void AddTextures(TextureObject * target, GLuint tex1, GLuint tex2, glm::ivec2 window_size);
 
-	/**
-	Get pointer to quad
-	*/
-	inline Quad * GetQuad(){ return m_quad; }
+    /**
+    Get pointer to quad
+    */
+    inline Quad * GetQuad()
+    {
+        return m_quad;
+    }
 
 
 };

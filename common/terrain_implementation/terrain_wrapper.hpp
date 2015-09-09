@@ -12,17 +12,17 @@ class TerrainWrapper : public TerrainShader
 {
 
 
-	/**
-	Terrain data
-	*/
-	Terrain* terra;
+    /**
+    Terrain data
+    */
+    Terrain* terra;
 
 
 
-	/**
-	Manage collision between player and terrain
-	*/
-	void ManagePlayerCollision(Controller*ctrl, bool null_gravity);
+    /**
+    Manage collision between player and terrain
+    */
+    void ManagePlayerCollision(Controller*ctrl, bool null_gravity);
 
 
 
@@ -30,24 +30,24 @@ public:
 
 
 
-	/**
-	Initialize module
-	*/
-	void Init();
-	/**
-	Clean module data
-	*/
-	void Clean();
-	/**
-	Enable module
-	*/
-	void Enable();
+    /**
+    Initialize module
+    */
+    void Init();
+    /**
+    Clean module data
+    */
+    void Clean();
+    /**
+    Enable module
+    */
+    void Enable();
 
 
-	/**
-	Render module information
-	*/
-	void Render();
+    /**
+    Render module information
+    */
+    void Render();
 
 
 

@@ -3,6 +3,13 @@
 
 
 
+#ifdef _MSC_VER
+#define NOMINMAX
+#endif
+
+
+
+
 //---------------------------------------------//
 
 #include <GL/glew.h>

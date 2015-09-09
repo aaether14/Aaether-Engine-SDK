@@ -23,28 +23,31 @@ class SkyWrapper : public SkyRender
 public:
 
 
-	/**
-	Initializes previous components
-	*/
-	inline SkyWrapper() : SkyRender(){}
-	/**
-	Calls Clean()
-	*/
-	inline ~SkyWrapper(){ Clean(); }
+    /**
+    Initializes previous components
+    */
+    inline SkyWrapper() : SkyRender() {}
+    /**
+    Calls Clean()
+    */
+    inline ~SkyWrapper()
+    {
+        Clean();
+    }
 
 
-	/**
-	Initializes data
-	*/
-	void Init();
-	/**
-	Cleans data
-	*/
-	void Clean();
-	/**
-	Affects the scene by rendering
-	*/
-	void Enable();
+    /**
+    Initializes data
+    */
+    void Init();
+    /**
+    Cleans data
+    */
+    void Clean();
+    /**
+    Affects the scene by rendering
+    */
+    void Enable();
 
 
 

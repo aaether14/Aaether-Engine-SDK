@@ -11,22 +11,22 @@ void BaseResourceLoader::SaveChanges()
 {
 
 
-	try
-	{
+    try
+    {
 
-		std::map<std::string, AModule*>::iterator it;
-
-
-
-		for (it = module_map.begin(); it != module_map.end(); it++)
-			static_cast<AStateSaver*>(it->second)->Save();
+        std::map<std::string, AModule*>::iterator it;
 
 
-	}
-	catch (const boost::filesystem::filesystem_error& ex)
-	{
-		std::cerr << ex.what();
-	}
+
+        for (it = module_map.begin(); it != module_map.end(); it++)
+            static_cast<AStateSaver*>(it->second)->Save();
+
+
+    }
+    catch (const boost::filesystem::filesystem_error& ex)
+    {
+        std::cerr << ex.what();
+    }
 
 
 }
@@ -39,22 +39,22 @@ void BaseResourceLoader::LoadChanges()
 
 
 
-	try
-	{
+    try
+    {
 
-		std::map<std::string, AModule*>::iterator it;
-
-
-
-		for (it = module_map.begin(); it != module_map.end(); it++)
-			static_cast<AStateSaver*>(it->second)->Load();
+        std::map<std::string, AModule*>::iterator it;
 
 
-	}
-	catch (const boost::filesystem::filesystem_error& ex)
-	{
-		std::cerr << ex.what();
-	}
+
+        for (it = module_map.begin(); it != module_map.end(); it++)
+            static_cast<AStateSaver*>(it->second)->Load();
+
+
+    }
+    catch (const boost::filesystem::filesystem_error& ex)
+    {
+        std::cerr << ex.what();
+    }
 
 
 
@@ -67,22 +67,22 @@ void BaseResourceLoader::NoChanges()
 {
 
 
-	try
-	{
+    try
+    {
 
-		std::map<std::string, AModule*>::iterator it;
-
-
-
-		for (it = module_map.begin(); it != module_map.end(); it++)
-			static_cast<AStateSaver*>(it->second)->Reset();
+        std::map<std::string, AModule*>::iterator it;
 
 
-	}
-	catch (const boost::filesystem::filesystem_error& ex)
-	{
-		std::cerr << ex.what();
-	}
+
+        for (it = module_map.begin(); it != module_map.end(); it++)
+            static_cast<AStateSaver*>(it->second)->Reset();
+
+
+    }
+    catch (const boost::filesystem::filesystem_error& ex)
+    {
+        std::cerr << ex.what();
+    }
 
 
 

@@ -23,9 +23,9 @@ class RootUI : public UIManager
 
 
 
-	CEGUI::Window* Root;
-	RootSettings * root_settings;
-	TopRoot * top_root;
+    CEGUI::Window* Root;
+    RootSettings * root_settings;
+    TopRoot * top_root;
 
 
 
@@ -33,34 +33,37 @@ public:
 
 
 
-	/**
-	Calls Init()
-	*/
-	inline RootUI() : UIManager() { }
-	/**
-	Initializes UI layouts
-	*/
-	void Init();
+    /**
+    Calls Init()
+    */
+    inline RootUI() : UIManager() { }
+    /**
+    Initializes UI layouts
+    */
+    void Init();
 
 
 
 
 
-	/**
-	Calls Clean()
-	*/
-	inline ~RootUI(){ this->Clean(); }
-	/**
-	Cleans UI layouts data
-	*/
-	void Clean();
+    /**
+    Calls Clean()
+    */
+    inline ~RootUI()
+    {
+        this->Clean();
+    }
+    /**
+    Cleans UI layouts data
+    */
+    void Clean();
 
 
 
-	/**
-	Renders all layouts to screen
-	*/
-	void Enable();
+    /**
+    Renders all layouts to screen
+    */
+    void Enable();
 
 
 

@@ -16,7 +16,7 @@ Wraps mesh functionality
 class MeshWrapper : public MeshShader
 {
 
-	
+
 
 
 
@@ -24,23 +24,23 @@ public:
 
 
 
-	/**
-	Initializes data
-	*/
-	void Init();
-	/**
-	Cleans data
-	*/
-	void Clean();
-	/**
-	Enables wrapper functionality
-	*/
-	void Enable();
+    /**
+    Initializes data
+    */
+    void Init();
+    /**
+    Cleans data
+    */
+    void Clean();
+    /**
+    Enables wrapper functionality
+    */
+    void Enable();
 
-	/**
-	Renders geometry
-	*/
-	void Render();
+    /**
+    Renders geometry
+    */
+    void Render();
 
 
 
